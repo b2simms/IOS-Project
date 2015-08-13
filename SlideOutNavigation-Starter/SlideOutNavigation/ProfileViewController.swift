@@ -52,6 +52,7 @@ class ProfileViewController: UIViewController {
         
     }
     
+    
     @IBAction func segmentedControllerAction(sender: AnyObject) {
 
         var input = segmentedController.titleForSegmentAtIndex(segmentedController.selectedSegmentIndex)!
@@ -60,15 +61,11 @@ class ProfileViewController: UIViewController {
         
                 segmentedController.selectedSegmentIndex = 1
                 segmentedController.setTitle(PARSEDDEP, forSegmentAtIndex: 0)
-            
                 segmentedController.setTitle(OVERVIEW, forSegmentAtIndex: 1)
                 segmentedController.setTitle(PARSEDCON, forSegmentAtIndex: 2)
-            
-                clearSubviews()
     
-                var newView: UIViewController = storyboard!.instantiateViewControllerWithIdentifier(STORYBOARDID_OVERVIEW) as! UIViewController
-                profileContainerView.addSubview(newView.view)
-                self.addChildViewController(newView)
+                setInnerContainerView(STORYBOARDID_OVERVIEW)
+            
         } else if input == CONTACT || input == PARSEDCON {
 
                 segmentedController.selectedSegmentIndex = 1
@@ -76,12 +73,7 @@ class ProfileViewController: UIViewController {
                 segmentedController.setTitle(CONTACT, forSegmentAtIndex: 1)
                 segmentedController.setTitle(PARSEDDEP, forSegmentAtIndex: 2)
             
-                clearSubviews()
-                
-                var newView: Profile_ContactANDEmployerController  = storyboard!.instantiateViewControllerWithIdentifier(STORYBOARDID_CONTACT) as! Profile_ContactANDEmployerController
-                profileContainerView.addSubview(newView.view)
-                newView.delegate = self
-                self.addChildViewController(newView)
+                setInnerContainerView(STORYBOARDID_CONTACT)
 
         } else if input == DEPENDENTS || input == PARSEDDEP {
             
@@ -90,11 +82,7 @@ class ProfileViewController: UIViewController {
                 segmentedController.setTitle(DEPENDENTS, forSegmentAtIndex: 1)
                 segmentedController.setTitle(PARSEDOVER, forSegmentAtIndex: 2)
             
-                clearSubviews()
-                
-                var newView: UIViewController = storyboard!.instantiateViewControllerWithIdentifier(STORYBOARDID_DEPENDENT) as! UIViewController
-                profileContainerView.addSubview(newView.view)
-                self.addChildViewController(newView)
+                setInnerContainerView(STORYBOARDID_DEPENDENT)
         }
     }
     
@@ -104,30 +92,44 @@ class ProfileViewController: UIViewController {
             subView.removeFromSuperview()
         }
     }
+    func setInnerContainerView(containerName : String) {
+        clearSubviews()
+        
+        switch containerName {
+        case STORYBOARDID_OVERVIEW:
+            var newView: UIViewController = storyboard!.instantiateViewControllerWithIdentifier(containerName) as! UIViewController
+            profileContainerView.addSubview(newView.view)
+            self.addChildViewController(newView)
+        case STORYBOARDID_CONTACT:
+            var newView: Profile_ContactANDEmployerController = storyboard!.instantiateViewControllerWithIdentifier(STORYBOARDID_CONTACT) as! Profile_ContactANDEmployerController
+            profileContainerView.addSubview(newView.view)
+            newView.delegate = self
+            self.addChildViewController(newView)
+        case STORYBOARDID_EDIT:
+            var newView: Profile_EDITContactController  = storyboard!.instantiateViewControllerWithIdentifier(STORYBOARDID_EDIT) as! Profile_EDITContactController
+            profileContainerView.addSubview(newView.view)
+            newView.delegate = self
+            self.addChildViewController(newView)
+        case STORYBOARDID_DEPENDENT:
+            var newView: UIViewController = storyboard!.instantiateViewControllerWithIdentifier(containerName) as! UIViewController
+            profileContainerView.addSubview(newView.view)
+            self.addChildViewController(newView)
+        default: break
+        }
+        
+    }
 }
 
 extension ProfileViewController : ProfileViewControllerDelegate {
     
     func changeContainerToContactController() {
         
-        
-        clearSubviews()
-        
-        
-        var newView: Profile_ContactANDEmployerController = storyboard!.instantiateViewControllerWithIdentifier(STORYBOARDID_CONTACT) as! Profile_ContactANDEmployerController
-        profileContainerView.addSubview(newView.view)
-        newView.delegate = self
-        self.addChildViewController(newView)
+        setInnerContainerView(STORYBOARDID_CONTACT)
     }
     
     func changeContainerToEditController() {
         
-        clearSubviews()
-        
-        var newView: Profile_EDITContactController  = storyboard!.instantiateViewControllerWithIdentifier(STORYBOARDID_EDIT) as! Profile_EDITContactController
-        profileContainerView.addSubview(newView.view)
-        newView.delegate = self
-        self.addChildViewController(newView)
+        setInnerContainerView(STORYBOARDID_EDIT)
     }
 }
 

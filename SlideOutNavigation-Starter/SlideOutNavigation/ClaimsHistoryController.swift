@@ -24,15 +24,15 @@ class ClaimsHistoryController: UIViewController, UITableViewDelegate, UITableVie
     
     let claimList = [
         ClaimHistoryExpandableCell (date: "16 Aug 2014"),
-        ClaimHistoryExpandableCell (benefit: "AD&D", claimant: "Janelle Muir", coverage: "Blood Pressure", paid: "200.00", serviceDate: "29 Sep 2014", receivedDate: "09 May 2014", payInfo: "Pharmacy Card"),
-        ClaimHistoryExpandableCell (benefit: "AD&D", claimant: "Janelle Muir", coverage: "Blood Pressure", paid: "200.00", serviceDate: "28 Sep 2014", receivedDate: "09 May 2014", payInfo: "Pharmacy Card"),
+        ClaimHistoryExpandableCell (benefit: "Medical", claimant: "Kyle Muir", coverage: "Blood Pressure", paid: "200.00", serviceDate: "16 Aug 2014", receivedDate: "09 May 2014", payInfo: "Pharmacy Card"),
+        ClaimHistoryExpandableCell (benefit: "Medical", claimant: "Janelle Muir", coverage: "Blood Pressure", paid: "200.00", serviceDate: "16 Aug 2014", receivedDate: "09 May 2014", payInfo: "Pharmacy Card"),
         ClaimHistoryExpandableCell (date: "01 Aug 2014"),
-        ClaimHistoryExpandableCell (benefit: "AD&D", claimant: "Janelle Muir", coverage: "Blood Pressure", paid: "200.00", serviceDate: "27 Sep 2014", receivedDate: "09 May 2014", payInfo: "Pharmacy Card"),
+        ClaimHistoryExpandableCell (benefit: "Medical", claimant: "Kyle Muir", coverage: "Blood Pressure", paid: "200.00", serviceDate: "01 Aug 2014", receivedDate: "09 May 2014", payInfo: "Pharmacy Card"),
         ClaimHistoryExpandableCell (date: "11 Jun  2014"),
-        ClaimHistoryExpandableCell (benefit: "AD&D", claimant: "Janelle Muir", coverage: "Blood Pressure", paid: "200.00", serviceDate: "26 Sep 2014", receivedDate: "09 May 2014", payInfo: "Pharmacy Card"),
-       ClaimHistoryExpandableCell (benefit: "AD&D", claimant: "Janelle Muir", coverage: "Blood Pressure", paid: "200.00", serviceDate: "25 Sep 2014", receivedDate: "09 May 2014", payInfo: "Pharmacy Card"),
+        ClaimHistoryExpandableCell (benefit: "Dentist", claimant: "Janelle Muir", coverage: "Blood Pressure", paid: "200.00", serviceDate: "11 Jun  2014", receivedDate: "09 May 2014", payInfo: "Pharmacy Card"),
+       ClaimHistoryExpandableCell (benefit: "Dentist", claimant: "Janelle Muir", coverage: "Blood Pressure", paid: "200.00", serviceDate: "11 Jun  2014", receivedDate: "09 May 2014", payInfo: "Pharmacy Card"),
         ClaimHistoryExpandableCell (date: "02 May 2014"),
-        ClaimHistoryExpandableCell (benefit: "AD&D", claimant: "Janelle Muir", coverage: "Blood Pressure", paid: "200.00", serviceDate: "24 Sep 2014", receivedDate: "09 May 2014", payInfo: "Pharmacy Card")
+        ClaimHistoryExpandableCell (benefit: "Dentist", claimant: "Janelle Muir", coverage: "Blood Pressure", paid: "200.00", serviceDate: "02 May 2014", receivedDate: "09 May 2014", payInfo: "Pharmacy Card")
     ]
 
     override func viewDidLoad() {
@@ -182,9 +182,10 @@ class ClaimCell: UITableViewCell {
         checkHeight()
     }
     
-    func ignoreFrameChanges(){
+    func ignoreFrameChanges() {
         removeObserver(self, forKeyPath: "frame")
     }
+    
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         if keyPath == "frame" {
             checkHeight()

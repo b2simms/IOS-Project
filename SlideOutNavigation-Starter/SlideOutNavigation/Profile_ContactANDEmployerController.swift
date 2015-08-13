@@ -66,6 +66,8 @@ class Profile_ContactANDEmployerController: UIViewController{
                 //println("Results found")
             } else {
                 println("Results NOT found...")
+                saveToDB()
+                loadData()
             }
             
             contactDB.close()
